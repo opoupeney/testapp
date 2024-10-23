@@ -12,7 +12,7 @@ import (
 func main() {
 	// Create the client object just once per process
 	c, err := client.Dial(client.Options{
-		HostPort: os.Getenv("TEMPORAL_CLUSTER_HOST")})
+		HostPort: os.Getenv("TEMPORAL_CLUSTER_HOST") + ":7233"})
 	if err != nil {
 		log.Fatalln("unable to create Temporal client", err)
 	}
