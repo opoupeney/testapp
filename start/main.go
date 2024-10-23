@@ -3,8 +3,9 @@ package main
 import (
 	"context"
 	"fmt"
-	"testapp/app"
 	"log"
+	"os"
+	"testapp/app"
 
 	"go.temporal.io/sdk/client"
 )
@@ -12,7 +13,8 @@ import (
 func main() {
 
 	// Create the client object just once per process
-	c, err := client.Dial(client.Options{})
+	c, err := client.Dial(client.Options{
+		HostPort: os.Getenv("TEMPORAL_CLUSTER_HOST") + ":7233"})
 	if err != nil {
 		log.Fatalln("unable to create Temporal client", err)
 	}
@@ -44,4 +46,3 @@ func printResults(msg string, workflowID, runID string) {
 	fmt.Printf("\nWorkflowID: %s RunID: %s\n", workflowID, runID)
 	fmt.Printf("\n%s\n\n", msg)
 }
-
